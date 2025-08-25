@@ -13,6 +13,6 @@ jobs:
      runs-on: aadi-bhai
      steps: 
      - name: first run init
-        run: echo aadi bhai
+       run: echo aadi bhai
 
       
