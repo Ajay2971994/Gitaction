@@ -1,0 +1,40 @@
+name: Terraform CI/CD for Azure
+
+on:
+  push:
+    branches:
+      - main
+      - feature/**
+
+jobs:
+  terraform:
+    name: Deploy to Azure via Terraform
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./terraform  # 👈 Change this if needed
+
+    steps:
+      - name: ⬇️ Checkout Code
+        uses: actions/checkout@v3
+
+      - name: 🔐 Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: 🧰 Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6  # 👈 Update if you use another version
+
+      - name: 🔍 Terraform Init
+        run: terraform init
+
+      - name: 📄 Terraform Plan
+        run: terraform plan
+
+      - name: ✅ Terraform Apply (Only on main)
+        if: github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve
