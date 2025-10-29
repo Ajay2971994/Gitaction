@@ -1,7 +1,8 @@
 name: gitaction
-
 on: push
-
+permissions:
+  id-token: write
+  contents: read
 jobs:
   terraform-job:
     name: My first job
@@ -17,6 +18,7 @@ jobs:
           client-id: 2a911d56-8c3b-49be-a345-0aebfe4f38f4
           tenant-id: a070e39d-6d1c-4d61-863a-8688e1ad02f6
           subscription-id: 3863b33b-9c78-424a-a7df-289b82e3ea3e
+
                    
       # - name: Terraform init azurerm backend
       #   # You may pin to the exact commit or the version.
