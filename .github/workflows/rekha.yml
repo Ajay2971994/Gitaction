@@ -18,26 +18,29 @@ jobs:
           client-id: 2a911d56-8c3b-49be-a345-0aebfe4f38f4
           tenant-id: a070e39d-6d1c-4d61-863a-8688e1ad02f6
           subscription-id: 3863b33b-9c78-424a-a7df-289b82e3ea3e
+      
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+      
+      - name: Terraform Init
+        id: init
+        run: terraform init -input=false
+      
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+      
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
 
-                   
-      # - name: Terraform init azurerm backend
-      #   # You may pin to the exact commit or the version.
-      #   # uses: ahmedig/terraform-azurerm-backend@65ed9d7f67790281b78670b7811d63d96f5e22ec
-      #   uses: ahmedig/terraform-azurerm-backend@v4
-      #   with:
-      #     # Azure Credentials in JSON format
-      #     azure_credentials: 
-      #     # State file location - resource group name
-      #     resource_group_name: aks-rg
-      #     container_name: lalli
-      #     storage_account_name: myone22
-      #     file_name: # optional, default is terraform.tfstate
-      #     # Subscription Id of the resource group
-      #     subscription_id: # optional, default is empty
-      #     # Terraform working directory
-      #     tf_working_directory: # optional, default is .
-              
-        
+      
+          
+
+      
        
          
       
