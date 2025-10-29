@@ -55,3 +55,5 @@ module "aks" {
   dns_prefix   = "ajaydns"
   k8s_tags     = local.common_tags
 }
+
+#acr add
