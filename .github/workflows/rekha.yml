@@ -1,18 +1,12 @@
-name: "Mera pehla workflow"
+name: gitaction
 
-on:
-  push:
-    branches:
-      - 'main'
-      - 'feature/**'
-      - 'hotfix/**'
-      
-jobs: 
-  terraforminit: 
-     name: init
-     runs-on: aadi-bhai
-     steps: 
-     - name: first run init
-       run: echo aadi bhai
+on: push
 
+jobs:
+  terraform-job:
+    name: My first job
+    runs-on: self-hosted
+    
+  my_second_job:
+    name: My second job
       
