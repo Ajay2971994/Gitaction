@@ -34,7 +34,7 @@ jobs:
         id: init
         run: terraform init -input=false
         working-directory: Gitaction/Parent_module/dev
-        shell: powershell
+        shell: cmd
       
       - name: Terraform Validate
         id: validate
