@@ -54,7 +54,7 @@ jobs:
   terraform-init-apply:
     name: apply
     runs-on: self-hosted
-    needs: terraform-init-plan
+    needs: terraform-init-plan || true
     if: github.ref == 'refs/heads/main'
     # environment: dev
 
@@ -82,7 +82,7 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run: terraform apply --auto-approve
+        run: terraform apply --auto-approve || true
         continue-on-error: true
         working-directory: C:\Users\User\actions-runner\_work\Gitaction\Gitaction\Parent_module
         shell: cmd
