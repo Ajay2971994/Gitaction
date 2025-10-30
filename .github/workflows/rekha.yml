@@ -33,19 +33,19 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init -input=false
-        working-directory: Gitaction/Parent_module/dev
+        working-directory: Parent_module/dev
         shell: cmd
       
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
-        working-directory: Gitaction/Parent_module/dev
+        working-directory: Parent_module/dev
       
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color -input=false
         continue-on-error: true
-        working-directory: Gitaction/Parent_module/dev
+        working-directory: Parent_module/dev
 
       
   terraform-init-apply:
@@ -70,13 +70,13 @@ jobs:
         - name: Terraform Init
           id: init
           run: terraform init -input=false
-          working-directory: Gitaction/Parent_module/dev
+          working-directory: Parent_module/dev
         
         - name: Terraform apply
           id: apply
           run: terraform apply --auto-approve
           continue-on-error: true
-          working-directory: Gitaction/Parent_module/dev
+          working-directory: Parent_module/dev
 
       
        
