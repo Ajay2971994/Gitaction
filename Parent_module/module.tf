@@ -62,7 +62,7 @@ module "pip" {
   name = "aadi_pip"
   resource_group_name = "git_rg"
   location = "central india"
-  allocation_method = "static"
+  allocation_method = "Static"
   tags = local.common_tags
 
 }
