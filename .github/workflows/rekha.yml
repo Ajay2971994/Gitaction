@@ -46,7 +46,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -no-color -input=false
+        run: terraform plan -no-color -input=false || true
         continue-on-error: true
         working-directory: C:\Users\User\actions-runner\_work\Gitaction\Gitaction\Parent_module
         shell: cmd
@@ -54,7 +54,7 @@ jobs:
   terraform-init-apply:
     name: apply
     runs-on: self-hosted
-    needs: terraform-init-plan || true
+    needs: terraform-init-plan 
     if: github.ref == 'refs/heads/main'
     # environment: dev
 
