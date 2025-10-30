@@ -43,7 +43,7 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init -input=false
-        working-directory: ./Parent_module/dev
+        working-directory: C:\Users\User\actions-runner\_work\Gitaction\Gitaction\Parent_module
         shell: cmd
 
       - name: Terraform Validate
