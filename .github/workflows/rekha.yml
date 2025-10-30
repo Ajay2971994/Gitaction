@@ -17,6 +17,7 @@ jobs:
       
   terraform-init-plan:
     - name: Debug Path
+      runs-on: self-hosted
       shell: cmd
       run: |
           echo "Current Directory:"
