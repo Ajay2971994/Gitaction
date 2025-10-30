@@ -56,7 +56,7 @@ jobs:
     runs-on: self-hosted
     needs: terraform-init-plan
     if: github.ref == 'refs/heads/main'
-    environment: dev
+    # environment: dev
 
     steps:
       - name: Checkout code
