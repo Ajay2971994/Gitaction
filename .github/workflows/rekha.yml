@@ -8,8 +8,8 @@ on:
 permissions:
   id-token: write
   contents: read
-env:
-  TERRAFORM_DIR: C:\Users\User\actions-runner\_work\Gitaction\Gitaction\Parent_module\dev
+# env:
+#   TERRAFORM_DIR: C:\Users\User\actions-runner\_work\Gitaction\Gitaction\Parent_module\dev
   
 jobs:
   terraform-init-plan:
@@ -35,20 +35,20 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init -input=false
-        working-directory: ${{ env.TERRAFORM_DIR }}
+        working-directory: C:\Users\User\actions-runner\_work\Gitaction\Gitaction\Parent_module\dev
         shell: cmd
 
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
-        working-directory: ${{ env.TERRAFORM_DIR }}
+        working-directory: C:\Users\User\actions-runner\_work\Gitaction\Gitaction\Parent_module\dev
         shell: cmd
 
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color -input=false
         continue-on-error: true
-        working-directory: ${{ env.TERRAFORM_DIR }}
+        working-directory: C:\Users\User\actions-runner\_work\Gitaction\Gitaction\Parent_module\dev
         shell: cmd
 
   terraform-init-apply:
@@ -77,13 +77,13 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init -input=false
-        working-directory: ${{ env.TERRAFORM_DIR }}
+        working-directory: C:\Users\User\actions-runner\_work\Gitaction\Gitaction\Parent_module\dev
         shell: cmd
 
       - name: Terraform Apply
         id: apply
         run: terraform apply --auto-approve
         continue-on-error: true
-        working-directory: ${{ env.TERRAFORM_DIR }}
+        working-directory: C:\Users\User\actions-runner\_work\Gitaction\Gitaction\Parent_module\dev
         shell: cmd
 
