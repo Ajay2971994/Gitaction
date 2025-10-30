@@ -1,97 +1,96 @@
 name: gitaction
-on: push
-# on:
-#   pull_request:
-#     # Sequence of patterns matched against refs/heads
-#     branches:
-#       - main
-#   push:
-#     # Sequence of patterns matched against refs/heads
-#     branches:
-#       - main
-      
+
+on:
+  push:
+    branches:
+      - main
+
 permissions:
   id-token: write
   contents: read
+
 jobs:
-      
-  terraform-init-plan:     
-    - name: Debug Path
-      run: |
+  terraform-init-plan:
+    name: init_plan
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Debug Path
+        run: |
           echo "Current Directory:"
           cd
           echo "Directory Listing:"
           dir
           echo "Parent_module folder check:"
           dir Parent_module
-    
-  #   name: init_plan
-  #   runs-on: self-hosted
-  #   steps: 
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4 
-        
-  #     # - name: Checkout
-  #     #   uses: little-core-labs/install-terraform@v2.0.0
-  #     #   with:
-  #     #     version: 1.13.0
-          
-  #     - name: Azure Login
-  #       uses: Azure/login@v2.3.0
-  #       with:
-  #         client-id: 2a911d56-8c3b-49be-a345-0aebfe4f38f4
-  #         tenant-id: a070e39d-6d1c-4d61-863a-8688e1ad02f6
-  #         subscription-id: 3863b33b-9c78-424a-a7df-289b82e3ea3e
-      
-  #     - name: Terraform Init
-  #       id: init
-  #       run: terraform init -input=false
-  #       working-directory: Parent_module/dev
-  #       shell: cmd
-      
-  #     - name: Terraform Validate
-  #       id: validate
-  #       run: terraform validate -no-color
-  #       working-directory: Parent_module/dev
-      
-  #     - name: Terraform Plan
-  #       id: plan
-  #       run: terraform plan -no-color -input=false
-  #       continue-on-error: true
-  #       working-directory: Parent_module/dev
+        shell: cmd
 
-      
-  # terraform-init-apply:
-  #     name: apply
-  #     runs-on: self-hosted
-  #     needs: terraform-init-plan
-  #     if: github.ref == 'refs/heads/main'
-  #     environment: dev
-  #     steps: 
-  #       - name: Checkout
-  #         uses: little-core-labs/install-terraform@v2.0.0
-  #         with:
-  #           version: 1.13.0
-  
-  #       - name: Azure Login
-  #         uses: Azure/login@v2.3.0
-  #         with:
-  #           client-id: 2a911d56-8c3b-49be-a345-0aebfe4f38f4
-  #           tenant-id: a070e39d-6d1c-4d61-863a-8688e1ad02f6
-  #           subscription-id: 3863b33b-9c78-424a-a7df-289b82e3ea3e
-        
-  #       - name: Terraform Init
-  #         id: init
-  #         run: terraform init -input=false
-  #         working-directory: Parent_module/dev
-        
-  #       - name: Terraform apply
-  #         id: apply
-  #         run: terraform apply --auto-approve
-  #         continue-on-error: true
-  #         working-directory: Parent_module/dev
+      - name: Install Terraform
+        uses: little-core-labs/install-terraform@v2.0.0
+        with:
+          version: 1.13.0
 
-      
-       
-         
-      
+      - name: Azure Login
+        uses: Azure/login@v2.3.0
+        with:
+          client-id: 2a911d56-8c3b-49be-a345-0aebfe4f38f4
+          tenant-id: a070e39d-6d1c-4d61-863a-8688e1ad02f6
+          subscription-id: 3863b33b-9c78-424a-a7df-289b82e3ea3e
+
+      - name: Terraform Init
+        id: init
+        run: terraform init -input=false
+        working-directory: ./Parent_module/dev
+        shell: cmd
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+        working-directory: ./Parent_module/dev
+        shell: cmd
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+        working-directory: ./Parent_module/dev
+        shell: cmd
+
+  terraform-init-apply:
+    name: apply
+    runs-on: self-hosted
+    needs: terraform-init-plan
+    if: github.ref == 'refs/heads/main'
+    environment: dev
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Terraform
+        uses: little-core-labs/install-terraform@v2.0.0
+        with:
+          version: 1.13.0
+
+      - name: Azure Login
+        uses: Azure/login@v2.3.0
+        with:
+          client-id: 2a911d56-8c3b-49be-a345-0aebfe4f38f4
+          tenant-id: a070e39d-6d1c-4d61-863a-8688e1ad02f6
+          subscription-id: 3863b33b-9c78-424a-a7df-289b82e3ea3e
+
+      - name: Terraform Init
+        id: init
+        run: terraform init -input=false
+        working-directory: ./Parent_module/dev
+        shell: cmd
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply --auto-approve
+        continue-on-error: true
+        working-directory: ./Parent_module/dev
+        shell: cmd
