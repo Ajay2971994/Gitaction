@@ -15,10 +15,8 @@ permissions:
   contents: read
 jobs:
       
-  terraform-init-plan:
+  terraform-init-plan:     
     - name: Debug Path
-      runs-on: self-hosted
-      shell: cmd
       run: |
           echo "Current Directory:"
           cd
@@ -26,9 +24,7 @@ jobs:
           dir
           echo "Parent_module folder check:"
           dir Parent_module
-          
-       
-
+    
   #   name: init_plan
   #   runs-on: self-hosted
   #   steps: 
