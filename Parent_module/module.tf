@@ -25,7 +25,7 @@ module "sa" {
 module "acr" {
   depends_on   = [module.rg]
   source       = "../Child_module/dev/azurerm_container_regisrty"
-  acr_name     = "acraadi"
+  acr_name     = "acraadibhai"
   acr_rgname   = "git_rg"
   acr_location = "central india"
   acr_tagname  = local.common_tags
@@ -55,3 +55,16 @@ module "aks" {
   dns_prefix   = "ajaydns"
   k8s_tags     = local.common_tags
 }
+
+module "pip" {
+  depends_on = [ module.rg ]
+  source = "../Child_module/dev/azurerm_public_ip"
+  name = "aadi_pip"
+  resource_group_name = "git_rg"
+  location = "central india"
+  allocation_method = "static"
+  tags = local.common_tags
+
+}
+
+#try apply
