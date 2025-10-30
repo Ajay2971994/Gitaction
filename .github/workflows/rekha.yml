@@ -27,7 +27,7 @@ jobs:
           version: 1.13.0
       # - name: Install Azure CLI
       #   run: |
-      #     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+      #     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo powershell
           
       - name: Azure Login
         uses: Azure/login@v2.3.0
@@ -40,20 +40,20 @@ jobs:
         id: init
         run: terraform init -input=false
         working-directory: Gitaction/Parent_module/dev
-        shell: bash
+        shell: powershell
       
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
         working-directory: Gitaction/Parent_module/dev
-        shell: bash
+        shell: powershell
       
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color -input=false
         continue-on-error: true
         working-directory: Gitaction/Parent_module/dev
-        shell: bash
+        shell: powershell
 
       
   terraform-init-apply:
@@ -79,14 +79,14 @@ jobs:
           id: init
           run: terraform init -input=false
           working-directory: Gitaction/Parent_module/dev
-          shell: bash
+          shell: powershell
         
         - name: Terraform apply
           id: apply
           run: terraform apply --auto-approve
           continue-on-error: true
           working-directory: Gitaction/Parent_module/dev
-          shell: bash
+          shell: powershell
 
       
        
