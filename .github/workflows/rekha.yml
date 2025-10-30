@@ -36,7 +36,7 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init -input=false
-        working-directory: Parent_module/dev
+        working-directory: Parent_module\dev
         shell: cmd
       
       - name: Terraform Validate
